@@ -1,0 +1,9 @@
+pymupdf
+pdfminer.six
+tqdm
+pydantic>=2
+rank-bm25
+rapidfuzz
+sentence-transformers
+faiss-cpu
+numpy
