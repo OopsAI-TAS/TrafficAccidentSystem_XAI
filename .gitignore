@@ -1,6 +1,5 @@
 .venv/
 __pycache__/
-*.pyc
 *.DS_Store
-data/index/
-data/law_json/*.jsonl
+data/raw_pdfs/*.pdf
+
