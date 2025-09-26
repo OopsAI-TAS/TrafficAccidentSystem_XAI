@@ -23,12 +23,14 @@ LLM-based legal reasoning system for traffic accident judgment with RAG pipeline
 python3 -m venv .venv
 source .venv/bin/activate   # (Windows: .venv\Scripts\activate)
 pip install -r requirements.txt
+```
 
 ### 2. 환경 변수 설정
 ```bash
 OPENAI_API_KEY=sk-xxxx
 OPENAI_BASE_URL=https://api.openai.com/v1
 OPENAI_MODEL=gpt-3.5-turbo
+```
 
 ### 3. 전체 실행 순서
 ```bash
@@ -46,6 +48,7 @@ PYTHONPATH=. python3 rag/answer.py
 
 # 5) 결과 JSON 변환 → answer.json 생성
 PYTHONPATH=. python3 rag/convert_answer_to_json.py
+```
 
 ### 4 결과물 확인
 	•	data/index/answer.txt : 사람이 읽기 좋은 리포트
@@ -68,6 +71,7 @@ data/
 rag/
   samples/          # 입력 샘플 (input.json)
   *.py              # 파이프라인 코드
+```
 
 
 
