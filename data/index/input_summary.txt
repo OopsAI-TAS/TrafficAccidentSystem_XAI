@@ -1,0 +1,1 @@
+video_name=, video_date= | type=None(미정), object=None(미정), place=None(미정), feature=None(미정) | A_prog=None(미정), B_prog=None(미정) | pred A/B=None/None

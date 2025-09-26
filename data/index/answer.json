@@ -1,0 +1,64 @@
+{
+  "summary": {
+    "A": 80,
+    "B": 20
+  },
+  "reasons": {
+    "base_table": {
+      "desc": "일반 도로에서의 추돌사고는 A(추돌차)와 B(피추돌차)의 기본 과실비율을 80:20으로 정한다."
+    },
+    "adjustments": [
+      {
+        "reason": "A 소좌회전·대좌회전",
+        "delta": "+10%"
+      },
+      {
+        "reason": "A 좌회전이후 차로변경",
+        "delta": "+10%"
+      },
+      {
+        "reason": "A 현저한 과실",
+        "delta": "+10%"
+      },
+      {
+        "reason": "A 중대한 과실",
+        "delta": "+20%"
+      },
+      {
+        "reason": "A 명확한 선진입",
+        "delta": "-10%"
+      },
+      {
+        "reason": "B 대우회전",
+        "delta": "+10%"
+      },
+      {
+        "reason": "B 우회전이후 차로변경",
+        "delta": "+10%"
+      },
+      {
+        "reason": "B 현저한 과실",
+        "delta": "+10%"
+      },
+      {
+        "reason": "B 중대한 과실",
+        "delta": "+20%"
+      },
+      {
+        "reason": "B 명확한 선진입",
+        "delta": "-10%"
+      }
+    ]
+  },
+  "laws": [],
+  "precedents": [
+    {
+      "source": "차13",
+      "gist": "1: A 차량의 중대한 과실로 인해 A의 과실비율이 조정되었음."
+    }
+  ],
+  "input": {
+    "video_name": "bb_1_010806_two-wheeled-vehicle_148_275",
+    "video_date": "010806"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "video_name": "bb_1_010806_two-wheeled-vehicle_148_275",
+  "video_date": "010806",
+  "type": "206(미정)",
+  "object": "2(차대자전거)",
+  "place": "0(직선 도로)",
+  "feature": "6(차로변경(진로변경))",
+  "A_prog": "97(진로변경)",
+  "B_prog": "101(후행 직진)",
+  "pred_AB": "60/40"
+}

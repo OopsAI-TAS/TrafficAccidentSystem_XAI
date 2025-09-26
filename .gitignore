@@ -2,4 +2,5 @@
 __pycache__/
 *.DS_Store
 data/raw_pdfs/*.pdf
-
+data/vector_index/
+.env
