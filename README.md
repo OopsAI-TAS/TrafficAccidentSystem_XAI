@@ -1,6 +1,3 @@
-# TrafficAccidentSystem_LLM
-LLM-based legal reasoning system for traffic accident judgment with RAG pipeline
-
 # TrafficAccidentSystem_LLM 🚦
 
 교통사고 블랙박스 영상을 기반으로 **RAG (Retrieval-Augmented Generation)** 기법을 활용해  
