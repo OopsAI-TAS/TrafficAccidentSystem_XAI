@@ -52,12 +52,14 @@ PYTHONPATH=. python3 rag/convert_answer_to_json.py
 	•	data/index/answer.json : API/후처리용 JSON
 
 ### 5 핵심 요약
+```bash
 1.	build_index.py → 법조문/판례/과실기준 데이터를 청크화 후 FAISS 벡터 DB 생성
 2.	retriever.py → 입력 메타데이터와 가장 유사한 조항·판례 검색
 3.	answer.py → 검색된 컨텍스트를 프롬프트에 포함해 LLM 호출
 	•	기본과실표/조정예시/법조문/판례 모두 강제 포함
 	•	A/B 합이 100%가 아니면 자동 정규화
 4.	convert_answer_to_json.py → 최종 텍스트 결과를 JSON 포맷으로 변환
+```
 
 ### 6 폴더 구조
 ```bash
