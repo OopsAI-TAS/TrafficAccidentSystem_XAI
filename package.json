@@ -1,0 +1,27 @@
+{
+  "name": "traffic-accident-system-xai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "교통사고 과실비율 입력 JSON을 받아 LLM으로 판결문 스타일 결과를 생성하는 CLI",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "tas-generate": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "lint": "node -e \"console.log('No linter configured')\"",
+    "generate": "node ./src/cli.js ./examples/sample.json"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "openai": "^4.0.0",
+    "zod": "^3.23.8",
+    "node-fetch": "^3.3.1"
+  },
+  "devDependencies": {}
+}
+

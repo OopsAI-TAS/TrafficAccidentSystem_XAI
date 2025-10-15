@@ -1,0 +1,74 @@
+{
+  "summary": {
+    "A": 60,
+    "B": 40
+  },
+  "reasons": {
+    "base_table": {
+      "desc": "교차로 직진 vs 좌회전 기본표(좌회전 불리)"
+    },
+    "adjustments": [
+      {
+        "reason": "A 소좌회전·대좌회전",
+        "delta": "+10%"
+      },
+      {
+        "reason": "B 주의의무 위반 일부",
+        "delta": "-10%"
+      }
+    ]
+  },
+  "laws": [
+    {
+      "name": "도로교통법 제13조",
+      "key": "교차로 통행방법 준수의무"
+    }
+  ],
+  "precedents": [
+    {
+      "source": "차13",
+      "gist": "좌회전 차량에 높은 주의의무 인정"
+    }
+  ],
+  "input": {
+    "video_name": "cam_2024-07-15_1530.mp4",
+    "video_date": "2024-07-15"
+  },
+  "evaluation_rubric": {
+    "criteria": [
+      {
+        "name": "Clarity",
+        "description": "How clear and understandable is the judgment?"
+      },
+      {
+        "name": "Fairness",
+        "description": "Does the judgment reflect fairness in its reasoning and outcome?"
+      },
+      {
+        "name": "Legal Basis",
+        "description": "Are the laws and precedents applied correctly and appropriately?"
+      },
+      {
+        "name": "Reasoning",
+        "description": "Is the reasoning logical and well-supported by evidence?"
+      }
+    ],
+    "scoring": {
+      "scale": "1-5",
+      "description": "1: Poor, 5: Excellent"
+    }
+  },
+  "llm_evaluation": {
+    "scores": {
+      "Clarity": 4,
+      "Fairness": 4,
+      "Legal Basis": 4,
+      "Reasoning": 4
+    },
+    "comments": "Evaluation completed successfully. Scores are based on predefined rubric."
+  },
+  "messages": [
+    { "role": "system", "content": "You are a helpful assistant." },
+    { "role": "user", "content": "What is the capital of France?" }
+  ]
+}
