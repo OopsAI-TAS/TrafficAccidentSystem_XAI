@@ -94,7 +94,6 @@ yarn-error.log
 # 🔒 Secrets / Env
 # -----------------------------
 .env
-.env.*
 !.env.exampletrain/artifacts/
 *.pt
 *.bin
