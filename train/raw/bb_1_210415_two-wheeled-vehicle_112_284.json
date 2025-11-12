@@ -1,0 +1,27 @@
+{
+    "info": {
+        "name": "accident",
+        "description": "",
+        "url": ""
+    },
+    "video": {
+        "video_name": "bb_1_210415_two-wheeled-vehicle_112_284",
+        "video_date": "210415",
+        "filming_way": "bb",
+        "video_point_of_view": 1,
+        "accident_negligence_rateA": 0,
+        "accident_negligence_rateB": 100,
+        "accident_object": 2,
+        "accident_place": 2,
+        "accident_place_feature": 18,
+        "vehicle_a_progress_info": 135,
+        "vehicle_b_progress_info": 52,
+        "damage_location": "",
+        "related_laws": "",
+        "violation_of_law": "",
+        "additional_elements": "",
+        "violation_factor": "",
+        "weather": "",
+        "accident_type": 308
+    }
+}

@@ -1,0 +1,1 @@
+snunlp/KR-SBERT-V40K-klueNLI-augSTS

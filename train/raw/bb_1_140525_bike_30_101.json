@@ -1,0 +1,26 @@
+{
+    "info": {
+        "name": "accident",
+        "description": "",
+        "url": ""
+    },
+    "video": {
+        "video_name": "bb_1_140525_bike_30_101",
+        "video_date": "140525",
+        "filming_way": "bb",
+        "video_point_of_view": 1,
+        "accident_negligence_rate": 0,
+        "traffic_accident_type": 385,
+        "accident_object": 3,
+        "accident_place": 0,
+        "accident_place_feature": 53,
+        "vehicle_a_progress_info": 6,
+        "vehicle_b_progress_info": 2,
+        "damage_location": "",
+        "related_laws": "",
+        "violation_of_law": "",
+        "additional_elements": "",
+        "violation_factor": "",
+        "weather": ""
+    }
+}

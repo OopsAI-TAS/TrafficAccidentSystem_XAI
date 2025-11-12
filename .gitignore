@@ -1,6 +1,98 @@
-.venv/
+# .venv/
+# __pycache__/
+# *.DS_Store
+# data/raw_pdfs/*.pdf
+# data/vector_index/
+# .env
+# -----------------------------
+# 🧠 Python / FastAPI / LangChain
+# -----------------------------
 __pycache__/
-*.DS_Store
-data/raw_pdfs/*.pdf
-data/vector_index/
+*.py[cod]
+*.so
+*.log
+*.sqlite3
+*.db
+*.pkl
+*.npy
+*.pt
+*.bin
+*.ckpt
+
+# -----------------------------
+# 🧪 Virtual environments
+# -----------------------------
+.venv/
+venv/
+env/
+ENV/
+
+# -----------------------------
+# ⚙️ Build & cache files
+# -----------------------------
+*.egg-info/
+.eggs/
+build/
+dist/
+.cache/
+*.pytest_cache/
+.ipynb_checkpoints/
+
+# -----------------------------
+# 🧾 Data files (local results, embeddings, cache)
+# -----------------------------
+data/cache/
+data/embeddings/
+data/tmp/
+data/output/
+data/result/
+data/index/*.pkl
+data/index/*.csv
+data/index/*.tsv
+data/index/*.npz
+data/index/*.faiss
+data/index/*.bak
+
+# keep only small json/txt index results
+!data/index/*.json
+!data/index/*.txt
+
+# -----------------------------
+# 🧩 Model or large artifacts
+# -----------------------------
+pretrained/
+checkpoints/
+weights/
+runs/
+wandb/
+wandb_latest/
+
+# -----------------------------
+# 🧰 IDE / OS files
+# -----------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# 🐳 Docker
+# -----------------------------
+*.pid
+*.seed
+*.pid.lock
+*.pidfile
+
+# -----------------------------
+# 📦 Node/React (if UI exists)
+# -----------------------------
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# -----------------------------
+# 🔒 Secrets / Env
+# -----------------------------
 .env
+.env.*
+!.env.example

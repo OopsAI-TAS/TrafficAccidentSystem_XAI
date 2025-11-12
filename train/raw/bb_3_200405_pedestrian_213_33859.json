@@ -1,0 +1,27 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_3_200405_pedestrian_213_33859",
+		"video_date": "200405",
+		"filming_way": "bb",
+		"video_point_of_view": 3,
+		"accident_negligence_rateA": 20,
+		"accident_negligence_rateB": 80,
+		"accident_object": 1,
+		"accident_place": 8,
+		"accident_place_feature": 26,
+		"vehicle_a_progress_info": 66,
+		"vehicle_b_progress_info": 76,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": "",
+		"traffic_accident_type": 153
+	}
+}

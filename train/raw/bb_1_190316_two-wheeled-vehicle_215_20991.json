@@ -1,0 +1,27 @@
+{
+    "info": {
+        "name": "accident",
+        "description": "",
+        "url": ""
+    },
+    "video": {
+        "video_name": "bb_1_190316_two-wheeled-vehicle_215_20991",
+        "video_date": "190316",
+        "filming_way": "bb",
+        "video_point_of_view": 1,
+        "accident_negligence_rateA": 20,
+        "accident_negligence_rateB": 80,
+        "traffic_accident_type": 240,
+        "accident_object": 2,
+        "accident_place": 1,
+        "accident_place_feature": 11,
+        "vehicle_a_progress_info": 113,
+        "vehicle_b_progress_info": 119,
+        "damage_location": "",
+        "related_laws": "",
+        "violation_of_law": "",
+        "additional_elements": "",
+        "violation_factor": "",
+        "weather": ""
+    }
+}

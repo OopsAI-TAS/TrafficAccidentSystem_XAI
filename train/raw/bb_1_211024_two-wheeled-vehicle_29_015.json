@@ -1,0 +1,27 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_211024_two-wheeled-vehicle_29_015",
+		"video_date": "211024",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rateA": 70,
+		"accident_negligence_rateB": 30,
+		"traffic_accident_type": 342,
+		"accident_object": 2,
+		"accident_place": 3,
+		"accident_place_feature": 10,
+		"vehicle_a_progress_info": 109,
+		"vehicle_b_progress_info": 118,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

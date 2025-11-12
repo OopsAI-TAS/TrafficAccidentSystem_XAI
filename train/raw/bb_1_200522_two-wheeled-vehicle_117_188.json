@@ -1,0 +1,27 @@
+{
+    "info": {
+        "name": "accident",
+        "description": "",
+        "url": ""
+    },
+    "video": {
+        "video_name": "bb_1_200522_two-wheeled-vehicle_117_188",
+        "video_date": "200522",
+        "filming_way": "bb",
+        "video_point_of_view": 1,
+        "accident_negligence_rateA": 50,
+        "accident_negligence_rateB": 50,
+        "accident_object": 2,
+        "accident_place": 2,
+        "accident_place_feature": 61,
+        "vehicle_a_progress_info": 184,
+        "vehicle_b_progress_info": 178,
+        "damage_location": "",
+        "related_laws": "",
+        "violation_of_law": "",
+        "additional_elements": "",
+        "violation_factor": "",
+        "weather": "",
+        "accident_type": 446
+    }
+}

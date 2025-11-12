@@ -1,0 +1,26 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_210216_two-wheeled-vehicle_221_41119",
+		"video_date": "210216",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rate": 0,
+		"traffic_accident_type": 207,
+		"accident_object": 2,
+		"accident_place": 0,
+		"accident_place_feature": 6,
+		"vehicle_a_progress_info": 98,
+		"vehicle_b_progress_info": 102,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

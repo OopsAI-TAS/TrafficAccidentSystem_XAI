@@ -1,0 +1,27 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_210906_two-wheeled-vehicle_314_067",
+		"video_date": "210906",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rateA": 70,
+		"accident_negligence_rateB": 30,
+		"traffic_accident_type": 352,
+		"accident_object": 2,
+		"accident_place": 3,
+		"accident_place_feature": 11,
+		"vehicle_a_progress_info": 117,
+		"vehicle_b_progress_info": 122,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

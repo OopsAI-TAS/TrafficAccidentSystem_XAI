@@ -1,0 +1,27 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_160107_two-wheeled-vehicle_119_167",
+		"video_date": "160728",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rateA": 60,
+		"accident_negligence_rateB": 40,
+		"traffic_accident_type": 206,
+		"accident_object": 2,
+		"accident_place": 0,
+		"accident_place_feature": 6,
+		"vehicle_a_progress_info": 97,
+		"vehicle_b_progress_info": 101,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

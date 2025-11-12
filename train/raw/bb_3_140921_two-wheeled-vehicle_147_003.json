@@ -1,0 +1,26 @@
+{
+    "info": {
+        "name": "accident",
+        "description": "",
+        "url": ""
+    },
+    "video": {
+        "video_name": "bb_3_140921_two-wheeled-vehicle_147_003",
+        "video_date": "140921",
+        "filming_way": "bb",
+        "video_point_of_view": 3,
+        "accident_negligence_rate": 30,
+        "traffic_accident_type": 309,
+        "accident_object": 2,
+        "accident_place": 2,
+        "accident_place_feature": 18,
+        "vehicle_a_progress_info": 132,
+        "vehicle_b_progress_info": 52,
+        "damage_location": "",
+        "related_laws": "",
+        "violation_of_law": "",
+        "additional_elements": "",
+        "violation_factor": "",
+        "weather": ""
+    }
+}

@@ -1,0 +1,26 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_200312_two-wheeled-vehicle_244_25009",
+		"video_date": "201219",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rate": 30,
+		"traffic_accident_type": 353,
+		"accident_object": 2,
+		"accident_place": 3,
+		"accident_place_feature": 11,
+		"vehicle_a_progress_info": 118,
+		"vehicle_b_progress_info": 126,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

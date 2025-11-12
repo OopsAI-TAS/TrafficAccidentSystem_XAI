@@ -1,0 +1,27 @@
+{
+    "info": {
+        "name": "accident",
+        "description": "",
+        "url": ""
+    },
+    "video": {
+        "video_name": "bb_1_200625_two-wheeled-vehicle_46_031",
+        "video_date": "200625",
+        "filming_way": "bb",
+        "video_point_of_view": 1,
+        "accident_negligence_rateA": 20,
+        "accident_negligence_rateB": 80,
+        "accident_object": 2,
+        "accident_place": 0,
+        "accident_place_feature": 10,
+        "vehicle_a_progress_info": 5,
+        "vehicle_b_progress_info": 21,
+        "damage_location": "",
+        "related_laws": "",
+        "violation_of_law": "",
+        "additional_elements": "",
+        "violation_factor": "",
+        "weather": "",
+        "accident_type": 230
+    }
+}

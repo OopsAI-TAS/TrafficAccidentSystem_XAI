@@ -1,0 +1,27 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_210607_pedestrian_219_21600",
+		"video_date": "210607",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rateA": 70,
+		"accident_negligence_rateB": 30,
+		"traffic_accident_type": 154,
+		"accident_object": 1,
+		"accident_place": 8,
+		"accident_place_feature": 27,
+		"vehicle_a_progress_info": 63,
+		"vehicle_b_progress_info": 53,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

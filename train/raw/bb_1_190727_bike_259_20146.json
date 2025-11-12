@@ -1,0 +1,27 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_190727_bike_259_20146",
+		"video_date": "190612",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rateA": 10,
+		"accident_negligence_rateB": 90,
+		"traffic_accident_type": 398,
+		"accident_object": 3,
+		"accident_place": 1,
+		"accident_place_feature": 11,
+		"vehicle_a_progress_info": 25,
+		"vehicle_b_progress_info": 27,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

@@ -1,0 +1,26 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_170606_bike_228_22977",
+		"video_date": "170606",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rate": 40,
+		"traffic_accident_type": 422,
+		"accident_object": 3,
+		"accident_place": 1,
+		"accident_place_feature": 55,
+		"vehicle_a_progress_info": 163,
+		"vehicle_b_progress_info": 24,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

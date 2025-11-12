@@ -1,121 +1,27 @@
-# # -*- coding: utf-8 -*-
-# import json, argparse, pathlib
-# from rag.query_builder import build_query
-# from rag.retriever import load_retriever, search, format_context
-
-# ROOT = pathlib.Path(__file__).resolve().parents[1]
-# PROMPT = (ROOT / "rag" / "prompts" / "legal_answer.txt").read_text(encoding="utf-8")
-
-# def main():
-#     ap = argparse.ArgumentParser()
-#     ap.add_argument("--json", required=True, help="CV가 생성한 input JSON 경로")
-#     ap.add_argument("--topk", type=int, default=8)
-#     args = ap.parse_args()
-
-#     inp = json.loads(pathlib.Path(args.json).read_text(encoding="utf-8"))
-#     query = build_query(inp)
-#     index, meta, model = load_retriever()
-#     ctxs = search(index, meta, model, query, topk=args.topk)
-#     context, a_ratio, b_ratio = format_context(ctxs)
-
-#     prompt = PROMPT.format(question=query, context=context, a_ratio=a_ratio, b_ratio=b_ratio)
-#     print("\n===== PROMPT =====\n")
-#     print(prompt)
-
-# if __name__ == "__main__":
-#     main()
-
-# rag/query.py
-# -*- coding: utf-8 -*-
-# import pathlib, sys, json
-# from typing import List, Dict, Any
-
-# ROOT = pathlib.Path(__file__).resolve().parents[1]
-# if str(ROOT) not in sys.path:
-#     sys.path.append(str(ROOT))
-
-# from rag.retriever import Retriever
-# from rag.query_builder import load_input, build_query
-
-# SAMPLE_INPUT = ROOT / "samples" / "input.json"
-# PROMPT_TPL   = ROOT / "rag" / "prompts" / "legal_assistant.md"
-# OUT_PROMPT   = ROOT / "data" / "index" / "request_prompt.txt"; OUT_PROMPT.parent.mkdir(parents=True, exist_ok=True)
-# OUT_JSON     = ROOT / "data" / "index" / "retrieved.json"
-
-# def _render_prompt(input_summary: str, snips: List[Dict[str, Any]]) -> str:
-#     tpl = PROMPT_TPL.read_text(encoding="utf-8")
-#     # 컨텍스트 슬림하게 정리
-#     lines = []
-#     for i, s in enumerate(snips, 1):
-#         lines.append(f"[{i}] ({s.get('section')}, score={s.get('score'):.3f}) "
-#                      f"ID={s.get('사고유형ID')} / {s.get('사고유형명')}\n{text_wrap(s.get('text',''))}")
-#     ctx = "\n\n".join(lines)
-#     return tpl.replace("{{INPUT_SUMMARY}}", input_summary)\
-#               .replace("{{RETRIEVED_SNIPPETS}}", ctx)
-
-# def text_wrap(t: str, width: int = 120) -> str:
-#     out = []
-#     line = ""
-#     for ch in (t or ""):
-#         line += ch
-#         if len(line) >= width and ch == " ":
-#             out.append(line); line = ""
-#     if line: out.append(line)
-#     return "\n".join(out)
-
-# def main():
-#     # 입력 불러오기
-#     inp = load_input(SAMPLE_INPUT)
-#     video = inp.get("video", {})
-#     query, title = build_query(video)
-#     video_name = video.get("video_name", "")
-#     video_date = video.get("video_date", "")
-#     input_summary = f"- video_name: {video_name}\n- video_date: {video_date}"
-
-#     # 검색
-#     ret = Retriever()
-#     hits = ret.search(query, top_k=10)
-
-#     # 산출물 저장
-#     OUT_JSON.write_text(json.dumps({"query": query, "hits": hits}, ensure_ascii=False, indent=2), encoding="utf-8")
-
-#     # 프롬프트 렌더링
-#     prompt = _render_prompt(input_summary, hits)
-#     OUT_PROMPT.write_text(prompt, encoding="utf-8")
-
-#     print("="*60)
-#     print("[QUERY]")
-#     print(query)
-#     print("="*60)
-#     print("[INPUT SUMMARY]")
-#     print(input_summary)
-#     print("="*60)
-#     print("[RETRIEVED TOP-K]")
-#     for i, h in enumerate(hits, 1):
-#         print(f"{i}. (score={h['score']:.3f}) "
-#               f"{h.get('사고유형ID')} / {h.get('사고유형명')} / {h.get('section')}")
-#         print("   ", h.get("text")[:180].replace("\n"," ") + "...")
-#     print("="*60)
-#     print(f"[PROMPT PREVIEW]\n{prompt[:500]}...\n")
-#     print(f"[OK] query built → saved json={OUT_JSON}, prompt={OUT_PROMPT}")
-#     print("="*60)
-
-# if __name__ == "__main__":
-#     main()
-# rag/query_builder.py
-# -*- coding: utf-8 -*-
-import json, pathlib
+import json, pathlib, os
 from typing import Dict, Any, Tuple, List
+from rag.retriever import Retriever
+from config.settings import get_progress_map_path
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-
-# ★경로 통일: 모두 ROOT / "samples" / "input.json" 사용
-SAMPLE_INPUT = ROOT / "samples" / "input.json"
+SAMPLE_INPUT = ROOT / "rag" / "samples" / "input.json"
 
 OUT_DIR     = ROOT / "data" / "index"
 OUT_QUERY   = OUT_DIR / "request_query.txt"
 OUT_SUMMARY = OUT_DIR / "input_summary.json"
+OUT_RETRIEVED = OUT_DIR / "retrieved.json"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
+
+section_bonus = {
+    "조정예시_A측": 0.0,
+    "조정예시_B측": 0.0,
+}
+
+section_bonus.update({
+    "조정예시_공통": 0.0,
+    "법조문": 0.0,
+    "판례": 0.0,
+})
 
 from rag.label_maps import (
     ACCIDENT_OBJECT_MAP,
@@ -125,6 +31,19 @@ from rag.label_maps import (
     VEHICLE_B_PROGRESS_MAP,
     ACCIDENT_TYPE_MAP,
 )
+def _load_progress_label_map():
+    mp = json.loads(get_progress_map_path().read_text(encoding="utf-8"))
+    invA, invB = {}, {}
+    for cat, codes in mp["vehicle_a_progress_info"].items():
+        for c in codes:
+            if c is None: continue
+            invA[int(c)] = cat
+    for cat, codes in mp["vehicle_b_progress_info"].items():
+        for c in codes:
+            if c is None: continue
+            invB[int(c)] = cat
+    return invA, invB
+
 
 def _lab(mapping: Dict[int, str], code: Any) -> str:
     try:
@@ -145,7 +64,9 @@ def load_input(path: pathlib.Path = SAMPLE_INPUT) -> Dict[str, Any]:
     data = json.loads(path.read_text(encoding="utf-8"))
     return data["video"] if isinstance(data, dict) and "video" in data else data
 
-def build_query(inp: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:
+def build_query(inp):
+    invA, invB = _load_progress_label_map()
+
     vid = _show(inp.get("video_name"))
     vdt = _show(inp.get("video_date"))
 
@@ -159,11 +80,12 @@ def build_query(inp: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:
     b_prog     = inp.get("vehicle_b_progress_info")
     type_code  = inp.get("accident_type")
 
+    a_lab = invA.get(int(a_prog), "미정") if a_prog not in (None,"",[]) else "미정"
+    b_lab = invB.get(int(b_prog), "미정") if b_prog not in (None,"",[]) else "미정"
+
     obj_lab   = _lab(ACCIDENT_OBJECT_MAP,          obj_code)
     place_lab = _lab(ACCIDENT_PLACE_MAP,           place_code)
     feat_lab  = _lab(ACCIDENT_PLACE_FEATURE_MAP,   feat_code)
-    a_lab     = _lab(VEHICLE_A_PROGRESS_MAP,       a_prog)
-    b_lab     = _lab(VEHICLE_B_PROGRESS_MAP,       b_prog)
     type_lab  = _lab(ACCIDENT_TYPE_MAP,            type_code)
 
     # ===== 질의문 =====
@@ -207,11 +129,26 @@ def build_query(inp: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:
 
     return query_text, input_summary
 
+prior_path = ROOT / "data" / "index" / "prior.json"
+if prior_path.exists():
+    prior = json.loads(prior_path.read_text(encoding="utf-8"))
+    if prior.get("A_ratio", 50) >= 60:
+        section_bonus["조정예시_A측"] += 0.02
+    elif prior.get("A_ratio", 50) <= 40:
+        section_bonus["조정예시_B측"] += 0.02
+
 def main():
     inp = load_input(SAMPLE_INPUT)
-    build_query(inp)
+    query_text, input_summary = build_query(inp)
+
+    ret = Retriever()
+    results = ret.search(query_text, top_k=10, section_bonus=section_bonus)
+    OUT_RETRIEVED.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    print("="*60)
+    print("[RETRIEVED (with section_bonus)] top-10")
+    print(json.dumps(results[:3], ensure_ascii=False, indent=2))  # 프리뷰 3개
+    print("="*60)
 
 if __name__ == "__main__":
     main()
-
-__all__ = ["load_input", "build_query"]

@@ -1,0 +1,26 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_190301_pedestrian_40_014",
+		"video_date": "190301",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rate": 30,
+		"traffic_accident_type": 161,
+		"accident_object": 1,
+		"accident_place": 9,
+		"accident_place_feature": 28,
+		"vehicle_a_progress_info": 72,
+		"vehicle_b_progress_info": 78,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

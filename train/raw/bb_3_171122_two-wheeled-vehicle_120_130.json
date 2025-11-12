@@ -1,0 +1,27 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_3_171122_two-wheeled-vehicle_120_130",
+		"video_date": "171122",
+		"filming_way": "bb",
+		"video_point_of_view": 3,
+		"accident_negligence_rateA": 30,
+		"accident_negligence_rateB": 70,
+		"accident_object": 2,
+		"accident_place": 3,
+		"accident_place_feature": 11,
+		"vehicle_a_progress_info": 54,
+		"vehicle_b_progress_info": 36,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": "",
+		"traffic_accident_type": 351
+	}
+}

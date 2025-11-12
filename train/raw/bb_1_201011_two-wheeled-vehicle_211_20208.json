@@ -1,0 +1,27 @@
+{
+    "info": {
+        "name": "accident",
+        "description": "",
+        "url": ""
+    },
+    "video": {
+        "video_name": "bb_1_201011_two-wheeled-vehicle_211_20208",
+        "video_date": "201011",
+        "filming_way": "bb",
+        "video_point_of_view": 1,
+        "accident_negligence_rateA": 100,
+        "accident_negligence_rateB": 0,
+        "traffic_accident_type": 440,
+        "accident_object": 2,
+        "accident_place": 2,
+        "accident_place_feature": 61,
+        "vehicle_a_progress_info": 181,
+        "vehicle_b_progress_info": 170,
+        "damage_location": "",
+        "related_laws": "",
+        "violation_of_law": "",
+        "additional_elements": "",
+        "violation_factor": "",
+        "weather": ""
+    }
+}

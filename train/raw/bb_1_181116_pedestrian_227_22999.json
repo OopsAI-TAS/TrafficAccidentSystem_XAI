@@ -1,0 +1,26 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_181116_pedestrian_227_22999",
+		"video_date": "181116",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rate": 20,
+		"traffic_accident_type": 151,
+		"accident_object": 1,
+		"accident_place": 9,
+		"accident_place_feature": 30,
+		"vehicle_a_progress_info": 73,
+		"vehicle_b_progress_info": 24,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

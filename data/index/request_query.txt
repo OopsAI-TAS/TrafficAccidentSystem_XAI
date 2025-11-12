@@ -3,8 +3,8 @@
 - accident_object: 2(차대자전거)
 - accident_place: 0(직선 도로)
 - accident_place_feature: 6(차로변경(진로변경))
-- vehicle_a_progress_info: 97(진로변경)
-- vehicle_b_progress_info: 101(후행 직진)
+- vehicle_a_progress_info: 97(차선변경)
+- vehicle_b_progress_info: 101(직진)
 - predicted_base_ratio: A=60 / B=40
 - video_name: bb_1_010806_two-wheeled-vehicle_148_275
 - video_date: 010806

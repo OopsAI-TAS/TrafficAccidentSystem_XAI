@@ -1,0 +1,26 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_120811_two-wheeled-vehicle_16_019",
+		"video_date": "120811",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rate": 10,
+		"traffic_accident_type": 319,
+		"accident_object": 2,
+		"accident_place": 2,
+		"accident_place_feature": 48,
+		"vehicle_a_progress_info": 137,
+		"vehicle_b_progress_info": 141,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

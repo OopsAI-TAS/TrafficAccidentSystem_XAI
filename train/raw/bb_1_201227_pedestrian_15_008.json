@@ -1,0 +1,26 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "bb_1_201227_pedestrian_15_008",
+		"video_date": "201227",
+		"filming_way": "bb",
+		"video_point_of_view": 1,
+		"accident_negligence_rate": 20,
+		"traffic_accident_type": 187,
+		"accident_object": 1,
+		"accident_place": 7,
+		"accident_place_feature": 25,
+		"vehicle_a_progress_info": 62,
+		"vehicle_b_progress_info": 24,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}

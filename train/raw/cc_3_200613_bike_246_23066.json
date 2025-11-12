@@ -1,0 +1,26 @@
+{
+	"info": {
+		"name": "accident",
+		"description": "",
+		"url": ""
+	},
+	"video": {
+		"video_name": "cc_3_200613_bike_246_23066",
+		"video_date": "190506",
+		"filming_way": "cc",
+		"video_point_of_view": 3,
+		"accident_negligence_rate": 10,
+		"traffic_accident_type": 398,
+		"accident_object": 3,
+		"accident_place": 1,
+		"accident_place_feature": 11,
+		"vehicle_a_progress_info": 25,
+		"vehicle_b_progress_info": 27,
+		"damage_location": "",
+		"related_laws": "",
+		"violation_of_law": "",
+		"additional_elements": "",
+		"violation_factor": "",
+		"weather": ""
+	}
+}
