@@ -95,4 +95,7 @@ yarn-error.log
 # -----------------------------
 .env
 .env.*
-!.env.example
+!.env.exampletrain/artifacts/
+*.pt
+*.bin
+*.safetensors
