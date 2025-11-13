@@ -1,0 +1,43 @@
+=== XAI IG Feature Analysis Report ===
+
+
+[Feature Mean Attribution]
+
+feat_acc_type      0.008181
+feat_place         0.006446
+feat_place_feat    0.006446
+feat_A_move       -0.134023
+feat_B_move       -0.181744
+dtype: float64
+
+
+[Feature |mean(|attr|)|]
+
+feat_B_move        0.565459
+feat_A_move        0.278636
+feat_place_feat    0.042054
+feat_place         0.042054
+feat_acc_type      0.035072
+dtype: float64
+
+
+[Correlation with pred_A]
+
+pred_A             1.000000
+feat_B_move        0.822840
+feat_A_move        0.600493
+feat_acc_type      0.232596
+feat_place_feat    0.106068
+feat_place         0.106068
+Name: pred_A, dtype: float64
+
+
+[Correlation with true_A]
+
+true_A             1.000000
+feat_B_move        0.650668
+feat_A_move        0.650292
+feat_acc_type      0.124439
+feat_place_feat    0.071011
+feat_place         0.071011
+Name: true_A, dtype: float64
