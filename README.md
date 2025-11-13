@@ -1,4 +1,4 @@
-# TrafficAccidentSystem_LLM 🚦
+# TrafficAccidentSystem_XAI 🚦
 
 교통사고 블랙박스 영상을 기반으로 **RAG (Retrieval-Augmented Generation)** 기법을 활용해  
 자동으로 **과실비율, 근거, 적용 법조문, 참고 판례**를 생성하는 시스템입니다.
