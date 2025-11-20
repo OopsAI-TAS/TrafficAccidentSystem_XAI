@@ -11,3 +11,4 @@ transformers
 captum
 seaborn
 pandas
+matplotlib
