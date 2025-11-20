@@ -98,3 +98,5 @@ yarn-error.log
 *.pt
 *.bin
 *.safetensors
+
+xai/results/*
