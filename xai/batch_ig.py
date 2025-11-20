@@ -17,6 +17,19 @@ RESULT_DIR.mkdir(parents=True, exist_ok=True)
 
 DATA_PATH = "train/valid.jsonl"  # test셋 있으면 바꿔도 됨
 
+def split_feature_key(feat_key, base_keys):
+    """
+    예: feat_key = '유형코드=214', base_keys = ['유형코드', '장소', ...]
+    -> ('유형코드', '214')
+    """
+    for base in base_keys:
+        if feat_key.startswith(base):
+            rest = feat_key[len(base):].strip()
+            if rest.startswith("="):
+                rest = rest[1:].strip()
+            return base, rest  # (feature_type, feature_value)
+    return None, None
+
 
 #############################################
 # 1) 전체 IG 계산 → CSV 저장
@@ -25,7 +38,11 @@ DATA_PATH = "train/valid.jsonl"  # test셋 있으면 바꿔도 됨
 def run_batch_ig():
     print("=== Running batch IG on dataset ===")
 
-    rows = []
+    # 타입 단위 요약 (기존 wide 포맷)
+    type_rows = []
+    # value 단위 롱 포맷
+    value_rows = []
+
     tok, model = load_model_and_tokenizer()
 
     with open(DATA_PATH, "r", encoding="utf-8") as f:
@@ -66,14 +83,35 @@ def run_batch_ig():
         # 3) feature-level attribution dict (예: "유형코드=214": 0.02, ...)
         feat_scores = aggregate_feature_attributions(merged_tokens, merged_scores)
 
-        # 4) 타입별(유형코드 / 장소 / ...)로 한 번 더 묶기
+        # ------------------------------
+        # 4-A) 타입별 요약 (기존 wide 포맷)
+        # ------------------------------
         type_scores = {k: 0.0 for k in base_keys}
-        for fk, fv in feat_scores.items():
-            for base in base_keys:
-                if fk.startswith(base):
-                    type_scores[base] = fv
 
-        row = {
+        for fk, fv in feat_scores.items():
+            # fk: "유형코드=214" 같은 문자열
+            ftype, fval = split_feature_key(fk, base_keys)
+            if ftype is None:
+                continue
+
+            # 타입별로는 IG를 합산(+=)하는 게 자연스러움
+            type_scores[ftype] += fv
+
+            # ------------------------------
+            # 4-B) value 단위 롱 포맷 row 추가
+            # ------------------------------
+            value_rows.append({
+                "sample_idx": idx,
+                "true_A": true_A,
+                "pred_A": predA,
+                "feature_type": ftype,              # 예: "유형코드"
+                "feature_alias": alias_map[ftype],  # 예: "feat_acc_type"
+                "feature_value": fval,              # 예: "214"
+                "ig_score": fv,
+            })
+
+        # 기존 wide 포맷 row (타입 단위)
+        row_type = {
             "true_A": true_A,
             "pred_A": predA,
             "feat_acc_type": type_scores["유형코드"],
@@ -82,15 +120,22 @@ def run_batch_ig():
             "feat_A_move": type_scores["A진행"],
             "feat_B_move": type_scores["B진행"],
         }
-        rows.append(row)
+        type_rows.append(row_type)
 
         if idx % 20 == 0:
             print(f"Processed {idx}/{len(lines)}")
 
-    df = pd.DataFrame(rows)
-    df.to_csv(RESULT_DIR / "ig_results.csv", index=False)
-    print("Saved IG results →", RESULT_DIR / "ig_results.csv")
-    return df
+    # 타입 단위 요약
+    df_type = pd.DataFrame(type_rows)
+    df_type.to_csv(RESULT_DIR / "ig_results.csv", index=False)
+    print("Saved IG type-level results →", RESULT_DIR / "ig_results.csv")
+
+    # value 단위 롱 포맷
+    df_value = pd.DataFrame(value_rows)
+    df_value.to_csv(RESULT_DIR / "ig_value_results.csv", index=False)
+    print("Saved IG value-level results →", RESULT_DIR / "ig_value_results.csv")
+
+    return df_type, df_value
 
 
 #############################################
@@ -180,9 +225,11 @@ def write_analysis(df):
 #############################################
 
 if __name__ == "__main__":
-    df = run_batch_ig()
-    draw_plots(df)
-    write_analysis(df)
+    df_type, df_value = run_batch_ig()
+
+    # 기존 시각화/분석은 타입 단위 df 사용
+    draw_plots(df_type)
+    write_analysis(df_type)
 
     print("\n=== DONE ===")
     print("Check folder:", RESULT_DIR)
