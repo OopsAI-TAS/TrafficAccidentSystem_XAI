@@ -32,7 +32,7 @@ def json_to_text(sample, inv):
         f"[영상] 이름={v.get('video_name','')}, 날짜={v.get('video_date','')}, "
         f"촬영방식={v.get('filming_way','')}, 시점pov={v.get('video_point_of_view','')}\n"
         f"[사고] 유형코드={v.get('traffic_accident_type','')}, 장소={v.get('accident_place','')}, 장소특징={v.get('accident_place_feature','')}\n"
-        f"[차량] A진행={a_cat}(코드={a_code}), B진행={b_cat}(코드={b_code})"
+        f"[차량] A진행={a_cat}, B진행={b_cat}"
     )
 
 def load_inv():

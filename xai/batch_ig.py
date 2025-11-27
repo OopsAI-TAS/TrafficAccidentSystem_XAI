@@ -5,42 +5,42 @@ import os
 import torch
 from pathlib import Path
 import pandas as pd
-import matplotlib
-matplotlib.use("Agg")   # 서버 환경에서 GUI 오류 방지
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 from ig_explain import pretty_ig, load_model_and_tokenizer, aggregate_feature_attributions
+
 
 RESULT_DIR = Path("xai/results")
 RESULT_DIR.mkdir(parents=True, exist_ok=True)
 
 DATA_PATH = "train/valid.jsonl"  # test셋 있으면 바꿔도 됨
 
+
 def split_feature_key(feat_key, base_keys):
     """
     예: feat_key = '유형코드=214', base_keys = ['유형코드', '장소', ...]
     -> ('유형코드', '214')
     """
-    for base in base_keys:
+    if not isinstance(feat_key, str):
+        return None, None
+
+    # 길이가 긴 key(장소특징)를 먼저 매칭하도록 정렬
+    for base in sorted(base_keys, key=len, reverse=True):
         if feat_key.startswith(base):
             rest = feat_key[len(base):].strip()
             if rest.startswith("="):
                 rest = rest[1:].strip()
-            return base, rest  # (feature_type, feature_value)
+            return base, rest
     return None, None
 
 
-#############################################
+############################################################
 # 1) 전체 IG 계산 → CSV 저장
-#############################################
+############################################################
 
 def run_batch_ig():
     print("=== Running batch IG on dataset ===")
 
-    # 타입 단위 요약 (기존 wide 포맷)
     type_rows = []
-    # value 단위 롱 포맷
     value_rows = []
 
     tok, model = load_model_and_tokenizer()
@@ -80,37 +80,31 @@ def run_batch_ig():
             text, n_steps=50
         )
 
-        # 3) feature-level attribution dict (예: "유형코드=214": 0.02, ...)
+        # 3) feature-level attribution
         feat_scores = aggregate_feature_attributions(merged_tokens, merged_scores)
 
         # ------------------------------
-        # 4-A) 타입별 요약 (기존 wide 포맷)
+        # 타입별 요약
         # ------------------------------
         type_scores = {k: 0.0 for k in base_keys}
 
         for fk, fv in feat_scores.items():
-            # fk: "유형코드=214" 같은 문자열
             ftype, fval = split_feature_key(fk, base_keys)
             if ftype is None:
                 continue
 
-            # 타입별로는 IG를 합산(+=)하는 게 자연스러움
             type_scores[ftype] += fv
 
-            # ------------------------------
-            # 4-B) value 단위 롱 포맷 row 추가
-            # ------------------------------
             value_rows.append({
                 "sample_idx": idx,
                 "true_A": true_A,
                 "pred_A": predA,
-                "feature_type": ftype,              # 예: "유형코드"
-                "feature_alias": alias_map[ftype],  # 예: "feat_acc_type"
-                "feature_value": fval,              # 예: "214"
+                "feature_type": ftype,
+                "feature_alias": alias_map[ftype],
+                "feature_value": fval,
                 "ig_score": fv,
             })
 
-        # 기존 wide 포맷 row (타입 단위)
         row_type = {
             "true_A": true_A,
             "pred_A": predA,
@@ -125,12 +119,12 @@ def run_batch_ig():
         if idx % 20 == 0:
             print(f"Processed {idx}/{len(lines)}")
 
-    # 타입 단위 요약
+    # 타입 단위 저장
     df_type = pd.DataFrame(type_rows)
     df_type.to_csv(RESULT_DIR / "ig_results.csv", index=False)
     print("Saved IG type-level results →", RESULT_DIR / "ig_results.csv")
 
-    # value 단위 롱 포맷
+    # value 단위 저장
     df_value = pd.DataFrame(value_rows)
     df_value.to_csv(RESULT_DIR / "ig_value_results.csv", index=False)
     print("Saved IG value-level results →", RESULT_DIR / "ig_value_results.csv")
@@ -138,52 +132,9 @@ def run_batch_ig():
     return df_type, df_value
 
 
-#############################################
-# 2) 그래프 자동 생성
-#############################################
-
-def draw_plots(df):
-    print("=== Drawing plots ===")
-
-    feat_cols = ["feat_acc_type", "feat_place", "feat_place_feat", "feat_A_move", "feat_B_move"]
-
-    # Boxplot
-    plt.figure(figsize=(9,6))
-    sns.boxplot(data=df[feat_cols])
-    plt.title("IG Attribution Distribution")
-    plt.savefig(RESULT_DIR / "boxplot.png")
-    plt.close()
-
-    # Violin
-    plt.figure(figsize=(9,6))
-    sns.violinplot(data=df[feat_cols])
-    plt.title("IG Attribution Violin Plot")
-    plt.savefig(RESULT_DIR / "violin.png")
-    plt.close()
-
-    # Scatter: pred_A vs 각 feature
-    for feat in feat_cols:
-        plt.figure(figsize=(8,5))
-        sns.scatterplot(x=df["pred_A"], y=df[feat])
-        plt.title(f"pred_A vs {feat}")
-        plt.xlabel("pred_A")
-        plt.ylabel(feat)
-        plt.savefig(RESULT_DIR / f"scatter_predA_vs_{feat}.png")
-        plt.close()
-
-    # Scatter: true_A vs pred_A
-    plt.figure(figsize=(8,5))
-    sns.scatterplot(x=df["true_A"], y=df["pred_A"])
-    plt.title("true_A vs pred_A")
-    plt.savefig(RESULT_DIR / "scatter_trueA_vs_predA.png")
-    plt.close()
-
-    print("Saved all plots!")
-
-
-#############################################
-# 3) 자동 분석 레포트 생성
-#############################################
+############################################################
+# 2) 자동 분석 레포트 생성 (텍스트만)
+############################################################
 
 def write_analysis(df):
     print("=== Writing analysis report ===")
@@ -193,22 +144,22 @@ def write_analysis(df):
     text = []
     text.append("=== XAI IG Feature Analysis Report ===\n")
 
-    # 1) 평균 기여도 순위
+    # 평균 기여도
     text.append("\n[Feature Mean Attribution]\n")
     means = df[feat_cols].mean().sort_values(ascending=False)
     text.append(str(means))
 
-    # 2) 절댓값 기준 중요도
+    # 절댓값 기준 중요도
     text.append("\n\n[Feature |mean(|attr|)|]\n")
     abs_means = df[feat_cols].abs().mean().sort_values(ascending=False)
     text.append(str(abs_means))
 
-    # 3) pred_A 관련성
+    # pred_A 관련성
     corr_pred = df[["pred_A"] + feat_cols].corr()["pred_A"].sort_values(ascending=False)
     text.append("\n\n[Correlation with pred_A]\n")
     text.append(str(corr_pred))
 
-    # 4) true_A 관련성
+    # true_A 관련성
     corr_true = df[["true_A"] + feat_cols].corr()["true_A"].sort_values(ascending=False)
     text.append("\n\n[Correlation with true_A]\n")
     text.append(str(corr_true))
@@ -220,15 +171,12 @@ def write_analysis(df):
     print("Saved analysis.txt →", path)
 
 
-#############################################
+############################################################
 # MAIN
-#############################################
+############################################################
 
 if __name__ == "__main__":
     df_type, df_value = run_batch_ig()
-
-    # 기존 시각화/분석은 타입 단위 df 사용
-    draw_plots(df_type)
     write_analysis(df_type)
 
     print("\n=== DONE ===")
