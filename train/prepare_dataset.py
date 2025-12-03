@@ -64,10 +64,10 @@ def sample_to_text(s, progress_inv, type_map, place_map, feat_map):
         f"[영상 정보] 촬영방식={v.get('filming_way','')}, 시점={v.get('video_point_of_view','')}, "
         f"영상명={v.get('video_name','')}, 촬영일자={v.get('video_date','')}\n"
         
-        f"[사고 정보] 사고유형={accident_type}, 사고장소={accident_place}, "
-        f"장소특징={accident_place_feat}\n"
+        f"[사고 정보] 사고유형={accident_type}, 사고장소={accident_place}(코드={place_raw}), "
+        f"장소특징={accident_place_feat}(코드={feat_raw})\n"
         
-        f"[차량 진행] A차량 진행상태={a_cat}, B차량 진행상태={b_cat}"
+        f"[차량 진행] A차량진행상태={a_cat}(코드={a_code}), B차량진행상태={b_cat}(코드={b_code})"
     )
 
     return txt
